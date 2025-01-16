@@ -41,21 +41,12 @@ def recognize_speech_from_mic():
 
 # Section 3: Text-to-Speech Function
 from gtts import gTTS
-import os
-import pygame
+from playsound import playsound
 
 def speak_text(text):
     tts = gTTS(text=text, lang='en')
     tts.save("output.mp3")
-    
-    # Initialize pygame mixer for audio playback
-    pygame.mixer.init()
-    pygame.mixer.music.load("output.mp3")
-    pygame.mixer.music.play()
-    
-    # Wait until the sound finishes playing
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
+    playsound("output.mp3")
 
     
 # Streamlit App UI
