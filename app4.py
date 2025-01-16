@@ -40,12 +40,23 @@ def recognize_speech_from_mic():
         return f"Sphinx error; {e}"
 
 # Section 3: Text-to-Speech Function
+from gtts import gTTS
+import os
+import pygame
+
 def speak_text(text):
-    engine = pyttsx3.init('espeak')
-    engine.setProperty("rate", 150)
-    engine.setProperty("volume", 0.9)
-    engine.say(text)
-    engine.runAndWait()
+    tts = gTTS(text=text, lang='en')
+    tts.save("output.mp3")
+    
+    # Initialize pygame mixer for audio playback
+    pygame.mixer.init()
+    pygame.mixer.music.load("output.mp3")
+    pygame.mixer.music.play()
+    
+    # Wait until the sound finishes playing
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+
     
 # Streamlit App UI
 st.title("Multifunctional Language App")
