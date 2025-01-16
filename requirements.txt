@@ -3,5 +3,4 @@ pyttsx3
 speechrecognition
 torch
 transformers[sentencepiece]
-espeak
 
