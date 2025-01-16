@@ -4,4 +4,4 @@ speechrecognition
 torch
 transformers[sentencepiece]
 gTTS
-
+pygame
