@@ -2,4 +2,4 @@ streamlit==1.19.0
 pyttsx3==2.90
 SpeechRecognition==3.8.1
 transformers==4.29.1
-torch==1.13.1
+torch==2.2.0
