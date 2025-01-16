@@ -41,7 +41,7 @@ def recognize_speech_from_mic():
 
 # Section 3: Text-to-Speech Function
 def speak_text(text):
-    engine = pyttsx3.init()
+    engine = pyttsx3.init('sapi5')
     engine.setProperty("rate", 150)
     engine.setProperty("volume", 0.9)
     engine.say(text)
