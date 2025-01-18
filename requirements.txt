@@ -6,4 +6,4 @@ transformers[sentencepiece]
 gTTS
 pydub
 sounddevice
-playsound
+playsound == 1.2.2
