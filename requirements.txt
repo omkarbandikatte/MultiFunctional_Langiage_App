@@ -2,7 +2,7 @@ streamlit
 pyttsx3
 speechrecognition
 torch
-transformers[sentencepiece]
+transformers[sentencepiece,MarianMTModel]
 gTTS
 pydub
 sounddevice
