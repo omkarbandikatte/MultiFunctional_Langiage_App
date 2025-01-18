@@ -6,3 +6,4 @@ transformers[sentencepiece]
 gTTS
 pydub
 sounddevice
+playsound
