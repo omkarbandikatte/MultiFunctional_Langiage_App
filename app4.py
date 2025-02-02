@@ -24,18 +24,23 @@ class Translator:
 # Section 2: Speech-to-Text Function
 def recognize_speech_from_mic():
     recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.write("Listening... please speak.")
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source, phrase_time_limit=5)
     
-    try:
-        text = recognizer.recognize_sphinx(audio)
-        return text
-    except sr.UnknownValueError:
-        return "Sphinx could not understand the audio."
-    except sr.RequestError as e:
-        return f"Sphinx error: {e}"
+    # Using Pocketsphinx instead of PyAudio
+    st.write("Listening... Please speak.")
+    with st.spinner("Processing audio..."):
+        audio_path = "speech.wav"  # Path to save the audio
+        os.system(f"arecord -d 5 -f cd -t wav {audio_path}")  # Record 5 seconds using arecord (Linux)
+
+        with sr.AudioFile(audio_path) as source:
+            audio = recognizer.record(source)
+        
+        try:
+            text = recognizer.recognize_sphinx(audio)  # Use Pocketsphinx
+            return text
+        except sr.UnknownValueError:
+            return "Could not understand the audio."
+        except sr.RequestError as e:
+            return f"Sphinx error: {e}"
 
 # Section 3: Text-to-Speech Function
 def speak_text(text):
@@ -82,3 +87,4 @@ with tab3:
         st.write("Recording... please speak.")
         recognized_text = recognize_speech_from_mic()
         st.write("**Recognized Text:**", recognized_text)
+
