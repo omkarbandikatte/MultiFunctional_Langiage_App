@@ -1,6 +1,6 @@
-streamlit>=1.25
-torch>=2.0
-transformers>=4.35
+streamlit
+torch
+transformers
 sentencepiece
 speechrecognition
 pocketsphinx
