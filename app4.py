@@ -21,26 +21,22 @@ class Translator:
             translated_tokens = self.model.generate(**inputs)
         return self.tokenizer.decode(translated_tokens[0], skip_special_tokens=True)
 
-# Section 2: Speech-to-Text Function
-def recognize_speech_from_mic():
+# Section 2: Speech-to-Text from Uploaded File
+def recognize_speech_from_file(uploaded_file):
     recognizer = sr.Recognizer()
     
-    # Using Pocketsphinx instead of PyAudio
-    st.write("Listening... Please speak.")
-    with st.spinner("Processing audio..."):
-        audio_path = "speech.wav"  # Path to save the audio
-        os.system(f"arecord -d 5 -f cd -t wav {audio_path}")  # Record 5 seconds using arecord (Linux)
-
-        with sr.AudioFile(audio_path) as source:
+    if uploaded_file is not None:
+        with sr.AudioFile(uploaded_file) as source:
             audio = recognizer.record(source)
-        
-        try:
-            text = recognizer.recognize_sphinx(audio)  # Use Pocketsphinx
-            return text
-        except sr.UnknownValueError:
-            return "Could not understand the audio."
-        except sr.RequestError as e:
-            return f"Sphinx error: {e}"
+            try:
+                text = recognizer.recognize_sphinx(audio)
+                return text
+            except sr.UnknownValueError:
+                return "Could not understand the audio."
+            except sr.RequestError as e:
+                return f"Sphinx error: {e}"
+    else:
+        return "No audio file uploaded."
 
 # Section 3: Text-to-Speech Function
 def speak_text(text):
@@ -80,11 +76,12 @@ with tab2:
         else:
             st.warning("Please enter text to speak.")
 
-# Tab 3: Speech Recognition
+# Tab 3: Speech Recognition (File Upload)
 with tab3:
-    st.header("Real-Time Speech-to-Text with Sphinx")
-    if st.button("Start Recording", key="record"):
-        st.write("Recording... please speak.")
-        recognized_text = recognize_speech_from_mic()
-        st.write("**Recognized Text:**", recognized_text)
+    st.header("Upload an Audio File for Speech Recognition")
+    uploaded_file = st.file_uploader("Upload a WAV audio file", type=["wav"])
 
+    if uploaded_file is not None:
+        with st.spinner("Processing audio..."):
+            recognized_text = recognize_speech_from_file(uploaded_file)
+            st.write("**Recognized Text:**", recognized_text)
