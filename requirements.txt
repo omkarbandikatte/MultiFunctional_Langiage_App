@@ -1,9 +1,7 @@
-streamlit
-pyttsx3
+streamlit>=1.25
+torch>=2.0
+transformers>=4.35
+sentencepiece
 speechrecognition
-torch
-transformers[sentencepiece,MarianMTModel]
-gTTS
-pydub
-sounddevice
-playsound == 1.2.2
+pocketsphinx
+gtts
