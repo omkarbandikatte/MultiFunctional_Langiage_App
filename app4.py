@@ -79,7 +79,7 @@ with tab2:
 # Tab 3: Speech Recognition (File Upload)
 with tab3:
     st.header("Upload an Audio File for Speech Recognition")
-    uploaded_file = st.file_uploader("Upload a WAV audio file", type=["wav"])
+    uploaded_file = st.file_uploader("Upload a WAV audio file", type=["mp3","aac"])
 
     if uploaded_file is not None:
         with st.spinner("Processing audio..."):
